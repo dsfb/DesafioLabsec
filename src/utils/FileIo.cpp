@@ -1,16 +1,23 @@
 #include "utils/FileIo.h"
+#include <vector>
 
 FileIo::~FileIo() {}
 
 ByteArray FileIo::readFile(const char* filePath)
 {
     /**
-     * TODO(milestone1)
+     * DOING(milestone1)
      */
     ByteArray ret;
     fstream file (filePath, ios::in|ios::binary|ios::ate);
     if (file.is_open()) {
-        TRACE(NOT_IMPLEMENTED);
+        vector<unsigned char> mDataBuffer;
+
+	while (file.good()) {
+	    mDataBuffer.push_back(file.get());
+	}
+
+	ret = ByteArray(reinterpret_cast<char*>( &mDataBuffer[0] ));
         file.close();
     } else {
         TRACE(NOT_IMPLEMENTED);
